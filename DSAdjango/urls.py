@@ -1,9 +1,9 @@
 from django.contrib import admin
 from django.http import HttpRequest, HttpResponse
 from django.urls import path
-from DSAdjango.views_audi import audi, audi_purchase
-from DSAdjango.views_name import name
-from DSAdjango.views_weather import show_weather
+from views_audi import audi, audi_purchase
+from views_name import name
+from views_weather import show_weather
 
 
 def hello_world(request: HttpRequest) -> HttpResponse:
