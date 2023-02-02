@@ -8,16 +8,16 @@
 </head>
 <body>
     <h3 style="margin: 10px">Your name is {{ name }}</h3>
-    <h1 style="margin: 10px">Hello audi!</h1>
+    <h1 style="margin: 10px">Audi Center</h1>
     <div style="display: flex; flex-flow: row">
         {% for car in cars %}
         <div class="card shadow" style="width: 18rem; margin: 1em">
             <img src="{{ car.image }}" class="card-img-top" alt="audi">
             <div class="card-body">
-                <h5 class="card-title">Audi {{ car.model }}</h5>
+                <h5 class="card-title">{{ car.name }}</h5>
                 <p class="card-text">Available: {{ car.available }}</p>
                 {% if car.available > 0 %}
-                    <a href=/buy_car/{{ car.id }} class="btn btn-success">BUY</a>
+                    <a href="/buy_car/{{ car.id }}" class="btn btn-success">BUY</a>
                 {% else %}
                     <div class="btn btn-light">NOT AVAILABLE</div>
                 {% endif %}

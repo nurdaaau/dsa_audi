@@ -1,29 +1,22 @@
 from django.contrib import admin
 from django.http import HttpRequest, HttpResponse
+from django.shortcuts import render
 from django.urls import path
-from views_audi import audi, audi_purchase
+from views_audi import audi_purchase
+from market.views import show_cars
 from views_name import name
 from views_weather import show_weather
 
 
 def hello_world(request: HttpRequest) -> HttpResponse:
-    return HttpResponse(
-        """
-        <h3>Hello, Nurdaulet!</h3>
-        <div style="font-size: 18px">
-            <a href="/weather">What is the weather today?</a><br>
-            <a href="/audi">Audi center</a><br>
-            <a href="/name">What is your name?</a><br>
-        </div>
-        """
-    )
+    return render(request, "index.html")
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', hello_world),
     path('weather', show_weather),
-    path('audi', audi),
+    path('audi', show_cars),
     path('buy_car/<int:id_>', audi_purchase),
     path('name', name),
 ]
