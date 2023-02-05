@@ -2,8 +2,7 @@ from django.contrib import admin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import path
-from views_audi import audi_purchase
-from market.views import show_cars
+from market.views import show_cars, audi_purchase
 from views_name import name
 from views_weather import show_weather
 

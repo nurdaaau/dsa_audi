@@ -1,5 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from market.models import Car, Order
 
 orders = []
 cars = [
@@ -41,8 +42,7 @@ def audi(request: HttpRequest) -> HttpResponse:
 
 def audi_purchase(request: HttpRequest, id_: int) -> HttpResponse:
     global cars
-    cars_with_id_match = [car for car in cars if car["id"] == id_]
-    car = cars_with_id_match[0]
+    car = Car
     if request.method == "POST":
         orders.append({
             "car": car,
