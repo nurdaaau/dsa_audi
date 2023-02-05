@@ -8,7 +8,7 @@
 </head>
 <body>
     <div class="card shadow" style="width: 40rem; margin: 2em; padding: 2em;">
-        <h3>Great! You are going to purchase Audi {{ car.model }}</h3>
+        <h3>Great! You are going to purchase {{ car.name }}!</h3>
         <img src="{{ car.image }}">
         <form method="post">
             {% csrf_token %}
