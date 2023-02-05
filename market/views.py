@@ -12,10 +12,8 @@ def show_cars(request: HttpRequest) -> HttpResponse:
 
 def audi_purchase(request: HttpRequest, id_: int) -> HttpResponse:
     car = Car.objects.filter(id=id_).first()
-    if request.method == "POST":
-        car.available -= 1
-        car.save()
 
+    if request.method == "POST":
         Order.objects.create(
             car=car,
             name=request.POST.get("name"),
