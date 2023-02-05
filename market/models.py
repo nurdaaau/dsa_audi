@@ -6,6 +6,11 @@ class Car(models.Model):
     available = models.IntegerField(default=0)
     image = models.CharField(max_length=1000, blank=True, default="")
 
+    def cars_left(self):
+        ordered = Order.objects.filter(car=self).count()
+        purchased = Purchase.objects.filter(car=self).count()
+        return purchased - ordered
+
     def __str__(self):
         return f"{self.id}: {self.name}, available: {self.available}"
 
@@ -20,3 +25,11 @@ class Order(models.Model):
     def __str__(self):
         return f"{self.id}: {self.car}, {self.name}, phone: {self.phone}, " \
                f"status: {self.status}"
+
+
+class Purchase(models.Model):
+    car = models.ForeignKey(Car, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.car}, purchase on date {self.date}"
