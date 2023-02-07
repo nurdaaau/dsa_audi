@@ -3,8 +3,8 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.urls import path
 from market.views import show_cars, audi_purchase
-from views_weather import show_weather
 from views_name import name
+from views_weather import show_weather
 
 
 def hello_world(request: HttpRequest) -> HttpResponse:

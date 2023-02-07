@@ -1,5 +1,5 @@
-from django.test import TestCase
-from market.models import Car, Purchase, Order
+from django.test import  TestCase
+from market.models import Car, Order, Purchase
 
 
 class PurchaseTest(TestCase):
@@ -16,30 +16,30 @@ class PurchaseTest(TestCase):
     def test_cars_left_function(self):
         car = Car.objects.get(name="Audi A6")
         # buy 3 cars
-        Purchase.objects.create(car=car, count=3)
+        Purchase.objects.create(car=car)
+        Purchase.objects.create(car=car)
+        Purchase.objects.create(car=car)
         # sell 1 car
         Order.objects.create(car=car)
         # we should have 2 cars left
         self.assertEqual(car.cars_left(), 2)
-        car = Car.objects.get(name="Audi A7")
+
+        car = Car.objects.get(name="Audi A8")
         self.assertEqual(car.cars_left(), 0)
 
     def test_cars_orders_by_client(self):
         # buy_car/<int:id_>
-        car = Car.objects.get(name="Audi A6")
+        car = Car.objects.get(name="Audi A8")
         # buy 3 cars
-        Purchase.objects.create(car=car, count=4)
+        Purchase.objects.create(car=car)
+        Purchase.objects.create(car=car)
+        Purchase.objects.create(car=car)
         # sell 1 car
         url = f"/buy_car/{car.id}"
         response = self.client.post(url, {
-            "name": "Timur",
-            "email": "timur@gmail.com",
-            "phone": "+772828778782",
+            "name": "Nurdaulet",
+            "email": "nurda@mail.ru",
+            "phone": "+77088294976",
         })
         self.assertEqual(response.status_code, 302)
-        assert car.cars_left() == 3
-
-    def test_purchase_order_default_is_one(self):
-        car = Car.objects.get(name="Audi A7")
-        purchase = Purchase.objects.create(car=car)
-        self.assertEqual(purchase.count, 1)
+        assert car.cars_left() == 2

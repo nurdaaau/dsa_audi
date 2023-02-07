@@ -1,6 +1,6 @@
 from django.http import HttpRequest, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from market.models import Car, Order
+from market.models import Car, Order, Payment
 
 
 def show_cars(request: HttpRequest) -> HttpResponse:
@@ -14,11 +14,17 @@ def audi_purchase(request: HttpRequest, id_: int) -> HttpResponse:
     car = Car.objects.filter(id=id_).first()
 
     if request.method == "POST":
-        Order.objects.create(
+        order = Order.objects.create(
             car=car,
             name=request.POST.get("name"),
             email=request.POST.get("email"),
             phone=request.POST.get("phone"),
+        )
+
+        payment = Payment.objects.create(
+            order=order,
+            amount=order.car.price,
+            credit_card=request.POST.get("credit_card")
         )
         return HttpResponseRedirect("/audi")
 
