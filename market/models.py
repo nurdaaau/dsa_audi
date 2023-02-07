@@ -5,14 +5,13 @@ class Car(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     available = models.IntegerField(default=0)
     image = models.CharField(max_length=1000, blank=True, default="")
+    price = models.IntegerField(default=0)
 
-    def cars_left(self) -> int:
+    def cars_left(self):
         ordered = Order.objects.filter(car=self).count()
-        # Это пример того, как можно пройти по списку отфильтрованных машин
         purchased = 0
         for purchase in Purchase.objects.filter(car=self):
             purchased += purchase.count
-        # purchased = Purchase.objects.filter(car=self).count()
         return purchased - ordered
 
     def __str__(self):
@@ -37,4 +36,14 @@ class Purchase(models.Model):
     count = models.IntegerField(default=1)
 
     def __str__(self):
-        return f"{self.car}, purchased on date {self.date}"
+        return f"{self.car}, purchase on date {self.date}"
+
+
+class Payment(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    amount = models.IntegerField(default=0)
+    date = models.DateField(auto_now_add=True)
+    credit_card = models.CharField(max_length=16, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.order}, amount: {self.amount}, date: {self.date}"
