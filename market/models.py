@@ -1,6 +1,14 @@
 from django.db import models
 
 
+class BadUser(models.Model):
+    username = models.CharField(max_length=1000)
+    password = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return f"{self.username}"
+
+
 class Car(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     available = models.IntegerField(default=0)
@@ -43,7 +51,7 @@ class Payment(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     amount = models.IntegerField(default=0)
     date = models.DateField(auto_now_add=True)
-    credit_card = models.CharField(max_length=16, blank=True, null=True)
+    credit_card = models.CharField(max_length=30, blank=True, null=True)
 
     def __str__(self):
         return f"{self.order}, amount: {self.amount}, date: {self.date}"
