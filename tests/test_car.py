@@ -1,4 +1,4 @@
-from django.test import  TestCase
+from django.test import TestCase
 from market.models import Car, Order, Purchase
 
 
@@ -43,3 +43,8 @@ class PurchaseTest(TestCase):
         })
         self.assertEqual(response.status_code, 302)
         assert car.cars_left() == 2
+
+    def test_purchase_order_default_is_one(self):
+        car = Car.objects.get(name="Audi A7")
+        purchase = Purchase.objects.create(car=car)
+        self.assertEqual(purchase.count, 1)
