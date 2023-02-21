@@ -1,14 +1,6 @@
 from django.db import models
 
 
-class BadUser(models.Model):
-    username = models.CharField(max_length=1000)
-    password = models.CharField(max_length=1000)
-
-    def __str__(self):
-        return f"{self.username}"
-
-
 class Car(models.Model):
     name = models.CharField(max_length=255, blank=False, null=False)
     available = models.IntegerField(default=0)

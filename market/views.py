@@ -4,8 +4,8 @@ from market.models import Car, Order, Payment
 
 
 def show_cars(request: HttpRequest) -> HttpResponse:
-    user_id = request.session.get("user_id", None)
-    if user_id is None:
+    user = request.user
+    if not user.is_authenticated:
         return redirect("/login")
     context = {
         "cars": Car.objects.all()
