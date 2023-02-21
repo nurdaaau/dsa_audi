@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.test import TestCase
 from market.models import Car, Order, Purchase
 
@@ -7,6 +8,12 @@ class PurchaseTest(TestCase):
         Car.objects.create(name="Audi A6")
         Car.objects.create(name="Audi A7")
         Car.objects.create(name="Audi A8")
+        User.objects.create_user(username="bill", password="gates")
+        response = self.client.get("/")
+        self.client.post(response.url, {
+            "username": "bill",
+            "password": "gates",
+        })
 
     def test_car_count(self):
         self.assertEqual(Car.objects.all().count(), 3)
